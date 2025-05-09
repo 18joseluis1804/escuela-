@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escuela De Talentos Arturo Angarita</title>
+       <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+       <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <!-- Font Awesome para íconos -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      .header {
+          background-color: rgb(55, 173, 224);
+          padding: 0px 0;
+      }
+      .logo img {
+          height: 80px;
+      }
+      .contact-info, .nav-link, .btn-custom {
+          color: white;
+      }
+      .search-container {
+          display: flex;
+          justify-content: center;
+          margin: 0px 0;
+      }
+      .search-box {
+          border: primary;
+          padding: 5px;
+          width: 300px;
+      }
+              #map {
+        height: 550px;
+        border-radius: 15px;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        z-index: 1;
+    }
+    .info-card {
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: transform 0.3s;
+    }
+    .info-card:hover {
+        transform: translateY(-5px);
+    }
+    .custom-icon {
+        background-color: #fff;
+        border-radius: 50%;
+        padding: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .zoom-controls {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        z-index: 1000;
+    }
+    .btn-map {
+        margin-bottom: 8px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #map {
+        height: 550px;
+        border-radius: 15px;
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        z-index: 1;
+    }
+    .info-card {
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transition: transform 0.3s;
+    }
+    .info-card:hover {
+        transform: translateY(-5px);
+    }
+    .custom-icon {
+        background-color: #fff;
+        border-radius: 50%;
+        padding: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .zoom-controls {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        z-index: 1000;
+    }
+    .btn-map {
+        margin-bottom: 8px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+  </style>
+  <!--icono de la pagina-->
+  <link rel="icon" href="C:\xampp\htdocs\pagina web\ejemplo\imagenes\escuela ico\favicon.ico" type="image/x-icon">
+
+<!--menu-->
+<body>
+  <header class="header">
+      <div class="container"> 
+          <div class="d-flex justify-content-between align-items-center">
+             <div class="logo" style="position:relative;top:  10px;">
+                  <img src="C:\Users\josel\OneDrive\Documentos\escuela\recursos\logo escuela.png" class="img-fluid" style="height: auto; width: 150px;" alt="Logo">
+              </div>
+              <span class="contact-info text-center w-100"style="position:relative;top: -25px;">📞 +505 84544662 | ✉ escueladetalentosarturoangarita@gmail.com</span>
+              <a href="#" class="btn-custom btn btn-outline-light"style="position:relative;top: 10px;">¡Inscríbete Ahora</a>
+          </div>
+          <div class="search-container"style="position:relative;top: -60px;">
+              <input type="text" class="search-box" placeholder="Buscar">
+          </div>
+          <nav class="d-flex justify-content-center" style="position:relative;top: -50px;">
+            <div class="dropdown me-3 text-light">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" >Inicio</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="C:\xampp\htdocs\pagina web\ejemplo\Escuela\inicio Escuela.html">Inicio</a></li>
+                    <li><a class="dropdown-item" href="#Colaboradores">Nuestros Colaboradores</a></li>
+                </ul>
+            </div>
+              <div class="dropdown me-3 text-light">
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" >Nosotros</a>
+                  <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#Valores">Valores</a></li>
+                        <li><a class="dropdown-item" href="#Nuestro Impacto">Nuestro Impacto</a></li>
+                  </ul>
+              </div>
+              <div class="dropdown me-3 text-light">
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Programas</a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="C:\xampp\htdocs\pagina web\ejemplo\Futdown\Futdown.html">Futdown </a></li>
+                    <li><a class="dropdown-item" href="C:\xampp\htdocs\pagina web\ejemplo\Futismo\Futismo.html">Futismo</a></li>
+                  </ul>
+              </div>
+              <div class="dropdown me-3 text-light">
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Sedes</a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="C:\xampp\htdocs\pagina web\ejemplo\Escuela\Sedes\Conchita Palacios.html">Conchita Palacios</a></li>
+                    <li><a class="dropdown-item" href="C:\xampp\htdocs\pagina web\ejemplo\Escuela\Sedes\Reparto Cuadra.html">Reparto Cuadra</a></li>
+                    <li><a class="dropdown-item" href="C:\xampp\htdocs\pagina web\ejemplo\Escuela\Sedes\ZDLinda Vista.html">Zona Deportiva Linda Vista</a></li>
+                    <li><a class="dropdown-item" href="C:\xampp\htdocs\pagina web\ejemplo\Escuela\Sedes\Ciudad Doral.html">Ciudad Doral</a></li>
+                  </ul>
+              </div>
+              <div class="dropdown me-3 text-light">
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Servicios</a>
+                  <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Entrenamiento Personalizado</a></li>
+                      <li><a class="dropdown-item" href="#">Cursos</a></li>
+                  </ul>
+              </div>
+              <div class="dropdown text-light">
+                  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Inscripción</a>
+                  <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="#">Escuela de Talentos Arturo Angarita</a></li>
+                      <li><a class="dropdown-item" href="#">Programas Sociales</a></li>
+                  </ul>
+              </div>
+          </nav>  
+         
+      </div>
+
+  </header>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+
+<section class="bg-ligth text-center text-primary py-2"> <h1 class="fw-bold fst-italic">Galeria de Fotos </h1></section>
+<section class="bg-white text-white text-center py-2">
+  <div class="container">
+<div class="container my-5">
+  <div class="row">
+     
+
+      <!-- Sección de Texto -->
+      <div class="col-md-6 info-box text-center">
+        <p>
+          <h3 class="text-center text-success fw-bold fst-italic"> <strong>Zona Deportiva Linda Vista</strong><br></h3> 
+                <h5 class="text-dark fs-6">
+                    En nuestra sede Zona Deportiva Linda Vista, combinamos el arte, la disciplina y el juego para brindar entrenamientos llenos de energía, creatividad y desarrollo personal. Contamos con un equipo de profesores capacitados, que adaptan cada clase al ritmo y las necesidades de la niñez, logrando un aprendizaje dinámico, divertido y formativo. <BR><BR>
+
+                    Este espacio está diseñado para que cada niño y niña pueda expresarse libremente, descubrir sus habilidades y potenciar su talento desde el corazón del deporte y el arte.<BR> <BR>
+
+                    🎭⚽🎶 ¡En Linda Vista, la pasión y el talento no paran de crecer!
+                 </h5>
+          
+        </p>
+        <a href="#" class=" btn btn-primary mt-3">¡Inscríbete ahora!</a>
+    </div>
+<!-- Sección del Carousel -->
+      <div class="col-md-6 shadow-lg">
+          <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                  <div class="carousel-item active">
+                      <img src="C:\xampp\htdocs\pagina web\ejemplo\imagenes\WhatsApp Image 2025-03-25 at 11.57.53.jpeg" class="d-block w-100" alt="Fútbol 1">
+                  </div>
+                  <div class="carousel-item">
+                      <img src="C:\xampp\htdocs\pagina web\ejemplo\imagenes\WhatsApp Image 2025-03-25 at 11.56.56.jpeg" class="d-block w-100" alt="Fútbol 2">
+                  </div>
+                  <div class="carousel-item">
+                      <img src= "C:\xampp\htdocs\pagina web\ejemplo\imagenes\476009857_611030345007962_867949337309606612_n.jpg" class="d-block w-100" alt="Fútbol 3">
+                  </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              </button>
+          </div>
+      </div> 
+      
+  </div>
+</div>
+</div>
+</section>
+
+  <!--seccion del mapa-->
+  <body class="bg-light">
+      <div class="container py-4">
+          <div class="row g-4">
+              <!-- Columna del Mapa -->
+              <div class="col-lg-8">
+                  <div class="position-relative">
+                      <div id="map"></div>
+                      <!-- Controles personalizados -->
+                      <div class="zoom-controls">
+                          <button id="zoomIn" class="btn btn-primary btn-map">
+                              <i class="fas fa-plus"></i>
+                          </button>
+                          <button id="zoomOut" class="btn btn-primary btn-map">
+                              <i class="fas fa-minus"></i>
+                          </button>
+                          <button id="locateMe" class="btn btn-info btn-map">
+                              <i class="fas fa-location-arrow"></i>
+                          </button>
+                      </div>
+                  </div>
+              </div>
+              
+              <!-- Columna de Información --> 
+              <div class="col-lg-4">
+                  <div class="info-card card h-100">
+                      <div class="card-header bg-primary text-white">
+                          <h4 class="mb-0"><i class="fa-solid fa-calendar-days me-2"></i>Ubicación y Horarios</h4>
+                      </div>
+                      <div class="card-body">
+                          <div class="d-flex align-items-center mb-3">
+                              <div class="custom-icon me-3">
+                                  <i class="fas fa-map-pin text-danger fs-4"></i>
+                              </div>
+                              <div>
+                                  <h5 class="mb-1">Horarios</h5>
+                                  <p class="text-muted mb-0">Dias de Entrenamiento</p>
+                              </div>
+                          </div>
+                          
+                          <ul class="list-group list-group-flush mb-4">
+                              <li class="list-group-item d-flex justify-content-between">
+                                  <span><i class="fa-solid fa-check me-2 text-primary"></i>Domingos</span>
+                                  <span class="fw-bold">6:00a.m. a 10:00a.m. </span>
+                              </li>
+                              <li class="list-group-item d-flex justify-content-between">
+                                  <span><i class="fa-solid fa-check me-2 text-primary"></i>Categorias </span>
+                                  <span class="fw-bold">Sub-10/Sub-12/Sub-14</span>
+                              </li>
+                              <li class="list-group-item d-flex justify-content-between">
+                                  <span><i class="fa-solid fa-check me-2 text-primary"></i>Plus Code</span>
+                                  <span class="fw-bold">PRMH+M2Q Managua</span>
+                              </li>
+                          </ul>
+                          
+                          <div class="d-grid gap-2">
+                              <a href="https://www.openstreetmap.org/#map=18/12.1288544/-86.2258575" 
+                              class="btn btn-outline-primary" target="_blank">
+                              <i class="fas fa-external-link-alt me-2"></i>Abrir en OpenStreetMap
+                              </a>
+                              <button id="copyCoords" class="btn btn-outline-secondary">
+                                  <i class="fas fa-copy me-2"></i>Copiar Coordenadas
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+          <!-- Bootstrap JS Bundle -->
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+          <!-- Leaflet JS -->
+          <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+          
+          <script>
+              // Inicializar mapa
+              const map = L.map('map').setView([12.150071,-86.3131], 18);
+              
+              // Capa base de OpenStreetMap
+              L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                  maxZoom: 19
+              }).addTo(map);
+              
+              // Marcador personalizado
+              const customIcon = L.divIcon({
+                  html: '<i class="fas fa-map-marker-alt fa-2x text-danger"></i>',
+                  iconSize: [30, 30],
+                  className: 'custom-icon-marker'
+              });
+              
+              const marker = L.marker([12.150071,-86.3131], {
+                  icon: customIcon
+              }).addTo(map)
+              .bindPopup(`
+                  <div class="text-center">
+                      <h6 class="mb-1"><i class="fas fa-thumbtack text-danger"></i> Ubicación Exacta</h6>
+                      <small>12.150071,-86.3131</small>
+                  </div>
+              `);
+              
+              // Círculo de 178m de radio
+              L.circle([12.150071,-86.3131], {
+                  color: '#dc3545',
+                  fillColor: '#dc3545',
+                  fillOpacity: 0.2,
+                  radius: 178
+              }).addTo(map).bindPopup("Área de 178m de radio");
+              
+              // Controles de zoom
+              document.getElementById('zoomIn').addEventListener('click', () => map.zoomIn());
+              document.getElementById('zoomOut').addEventListener('click', () => map.zoomOut());
+              
+              // Localización del usuario
+              document.getElementById('locateMe').addEventListener('click', () => {
+                  map.locate({setView: true, maxZoom: 16});
+              });
+              
+              map.on('locationfound', (e) => {
+                  L.marker([e.latitude, e.longitude]).addTo(map)
+                      .bindPopup("¡Estás aquí!").openPopup();
+              });
+              
+              // Copiar coordenadas
+              document.getElementById('copyCoords').addEventListener('click', () => {
+                  navigator.clipboard.writeText("12.150071,-86.3131");
+                  alert("Coordenadas copiadas al portapapeles!");
+              });
+              
+              // Escala
+              L.control.scale({position: 'bottomleft'}).addTo(map);
+          </script>
+      </section>
+ 
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escuela De Talentos Arturo Angarita</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #37ade0;
+            --secondary-color: hsl(42, 78%, 54%);
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .top-bar {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 5px 0;
+            font-size: 0.9rem;
+        }
+        
+        .header {
+            background-color: var(--primary-color);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo img {
+            height: 80px;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav-link, .btn-custom {
+            color: white;
+        }
+        
+        .btn-custom {
+            background-color: var(--secondary-color);
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-custom:hover {
+            background-color: #1c73bf;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .search-container {
+            position: relative;
+            margin: 10px 0;
+        }
+        
+        .search-box {
+            border: 2px solid white;
+            border-radius: 50px;
+            padding: 8px 20px;
+            width: 100%;
+            max-width: 400px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .search-box:focus {
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: white;
+        }
+        
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        
+        .contact-info a:hover {
+            color: var(--secondary-color);
+        }
+        
+        /* Resto del CSS permanece igual */
+        .nav-item {
+            margin: 0 5px;
+            position: relative;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            padding: 10px 15px !important;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .dropdown-item {
+            padding: 10px 20px;
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-item:hover {
+            background-color: var(--primary-color);
+            color: white;
+            padding-left: 25px;
+        }
+        
+        .dropdown-item:active {
+            background-color: var(--secondary-color);
+        }
+        
+        .navbar-toggler {
+            border: none;
+            color: white;
+        }
+        
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+        
+        /* Efecto de subrayado animado */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px;
+            left: 15px;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: calc(100% - 30px);
+        }
+        
+        /* Accesibilidad para personas con discapacidad visual */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        /* Efecto para resaltar elementos importantes */
+        .highlight {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Estilos del carrusel dinámico */
+        .dynamic-carousel {
+    /* Tus estilos existentes... */
+    position: relative;
+}
+
+.dynamic-carousel::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 5%;
+    width: 90%;
+    height: 20px;
+    background: radial-gradient(ellipse at center, 
+                rgba(0,0,0,0.4) 0%, 
+                rgba(0,0,0,0) 80%);
+    filter: blur(5px);
+    z-index: -1;
+}
+
+        .dynamic-carousel {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 50px 0;
+            margin: 40px 0;
+        }
+        
+        .dynamic-carousel .swiper {
+            width: 100%;
+            max-width: 1000px;
+            height: 500px;
+            perspective: 1200px;
+        }
+        
+        .dynamic-carousel .swiper-slide {
+            position: relative;
+            background: linear-gradient(45deg, #2d3436, #34495e);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            transform-style: preserve-3d;
+            transition: transform 0.5s, box-shadow 0.5s;
+        }
+        
+        .dynamic-carousel .swiper-slide:hover {
+            transform: scale(1.03) translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+        }
+        
+        .dynamic-carousel .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+        }
+        
+        .dynamic-carousel .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            transform: translateZ(30px);
+        }
+        
+        .dynamic-carousel .slide-content h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dynamic-carousel .slide-content h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background:#19baff;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+        
+        .dynamic-carousel .swiper-slide:hover .slide-content h3::after {
+            transform: scaleX(1);
+        }
+        
+        .dynamic-carousel .slide-content p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        /* Botones personalizados */
+        .dynamic-carousel .swiper-button-next, 
+        .dynamic-carousel .swiper-button-prev {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            color: white !important;
+            transition: all 0.3s;
+        }
+        
+        .dynamic-carousel .swiper-button-next:hover, 
+        .dynamic-carousel .swiper-button-prev:hover {
+            background: #19baff;
+            transform: scale(1.1);
+        }
+        
+        /* Paginación estilo "bola de cristal" */
+        .dynamic-carousel .swiper-pagination-bullet {
+            width: 15px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(2px);
+            opacity: 1;
+            transition: all 0.3s;
+        }
+        
+        .dynamic-carousel .swiper-pagination-bullet-active {
+            background: #19baff;
+            transform: scale(1.3);
+            box-shadow: 0 0 10px #19baff;
+        }
+        
+        /* Efecto de neón en el título */
+        .dynamic-carousel .neon-text {
+            animation: neonGlow 2s infinite alternate;
+        }
+        
+        @keyframes neonGlow {
+            from {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #19baff, 0 0 20px #19baff;
+            }
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #19baff, 0 0 40px #19baff;
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .top-bar .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .top-bar .contact-info {
+                margin-bottom: 5px;
+            }
+            
+            .header .d-flex {
+                flex-direction: column;
+            }
+            
+            .search-container {
+                margin: 10px 0;
+            }
+            
+            .dynamic-carousel .swiper {
+                height: 400px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .dynamic-carousel .swiper {
+                height: 350px;
+            }
+            
+            .dynamic-carousel .slide-content h3 {
+                font-size: 1.5rem;
+            }
+            
+            .dynamic-carousel .swiper-button-next, 
+            .dynamic-carousel .swiper-button-prev {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 500px;
+      animation: fadeIn 0.5s;
+    }
+    
+    .modal-content h2 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+    }
+    
+    .modal-content button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 15px;
+    }
+    
+    .modal-content button:hover {
+      background-color: #2980b9;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .hover-effect {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-effect:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+    }
+    .card {
+        border: none;
+    }
+    </style>
+
+    
+</head>
+<body>
+    <!-- Nueva barra superior para contacto -->
+    <div class="top-bar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="contact-info">
+                <a href="http://wa.me/50584544662" target="_blank"><i class="bi bi-whatsapp me-2"></i>+505 84544662</a>
+                <a href="mailto:escueladetalentosarturoangarita@gmail.com" class="ms-3"><i class="bi bi-envelope-fill me-2"></i>escueladetalentosarturoangarita@gmail.com</a>
+            </div>
+            <a href="#" class="btn btn-custom btn-sm px-3 highlight">
+                <i class="bi bi-pencil-square me-1"></i>¡Inscríbete Ahora!
+            </a>
+        </div>
+    </div>
+
+    <!-- Header principal -->
+    <header class="header">
+        <div class="container">
+            <!-- Logo centrado -->
+            <div class="text-center py-3 ">
+                <div class="logo d-inline-block ">
+                    <img src="C:\Users\josel\OneDrive\Documentos\escuela\recursos\logo escuela.png" class="img-fluid shadow-none" style="height: auto; width: 150px;" alt="Logo Escuela de Talentos Arturo Angarita">
+                </div>
+                <div class="logo d-inline-block ">
+                    <img src="C:\Users\josel\OneDrive\Documentos\escuela\recursos\1x\nuevo logo futdown.png"class="img-fluid shadow-none" style="height: auto; width: 150px;" alt="Logo Escuela de Talentos Arturo Angarita">
+                </div>
+            </div>
+            
+            <!-- Barra de búsqueda -->
+            <div class="search-container text-center">
+                <div class="position-relative d-inline-block">
+                    <input type="text" class="search-box" placeholder="Buscar en el sitio..." aria-label="Buscar">
+                    <button class="search-btn" type="button">
+                        <i class="bi bi-search"></i>
+                        <span class="sr-only">Buscar</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Navegación principal -->
+            <nav class="navbar navbar-expand-lg p-0">
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="bi bi-list" style="font-size: 1.5rem;"></i>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav mx-auto">
+                        <!-- Elementos del menú permanecen igual -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="inicioDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-house-door-fill me-1"></i>Inicio
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="inicioDropdown">
+                                <li><a class="dropdown-item" href="C:\xampp\htdocs\pagina web\ejemplo\Escuela\inicio Escuela.html"><i class="bi bi-people-fill me-2"></i>ETAA</a></li>
+                                <li><a class="dropdown-item" href="C:\xampp\htdocs\pagina web\ejemplo\Futismo\Futismo.html"><i class="fas fa-soccer-ball me-2"></i>Futismo</a></li> 
+                              
+                                <li><a class="dropdown-item" href="  C:\xampp\htdocs\pagina web\ejemplo\Futdown\prueba.html"><i class="fas fa-soccer-ball me-2"></i>Futismo</a></li> 
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="noticiasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-newspaper me-1"></i>Noticias y Eventos
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="noticiasDropdown">
+                                <li><a class="dropdown-item" href="C:\xampp\htdocs\pagina web\ejemplo\Futdown\prueba.html"><i class="bi bi-trophy-fill me-2"></i>Historias de Éxito</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-chat-square-quote-fill me-2"></i>Testimonios</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-calendar-event-fill me-2"></i>Próximos Eventos</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="futdownDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-question-circle-fill me-1"></i>¿Qué es FutDown?
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="futdownDropdown">
+                                <li><a class="dropdown-item" href="C:\xampp\htdocs\pagina web\ejemplo\Nosotros.html#Nosotros"><i class="bi bi-info-circle-fill me-2"></i>Sobre FutDown</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-lightbulb-fill me-2"></i>Nuestra Metodología</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-heart-fill me-2"></i>Beneficios</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="sedesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-geo-alt-fill me-1"></i>Entrenamientos y Sedes
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="sedesDropdown">
+                                <li><a class="dropdown-item" href="C:\xampp\htdocs\pagina web\ejemplo\Conchita Palacios.html#Conchita Palacios"><i class="bi bi-building me-2"></i>Conchita Palacios</a></li>
+                                <li><a class="dropdown-item" href="C:\xampp\htdocs\pagina web\ejemplo\ZDLinda Vista.html#ZDLinda Vista"><i class="bi bi-tree-fill me-2"></i>Zona Deportiva Linda Vista</a></li>
+                                <li><a class="dropdown-item" href="C:\xampp\htdocs\pagina web\ejemplo\Ciudad Doral.html#Ciudad Doral"><i class="bi bi-shop me-2"></i>Zona Deportiva Galerías</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-calendar-week-fill me-2"></i>Horarios</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="inscripcionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-pencil-fill me-1"></i>Inscripción
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="inscripcionDropdown">
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-star-fill me-2"></i>Escuela de Talentos Arturo Angarita</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-people-fill me-2"></i>Programas Sociales</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#"><i class="bi bi-file-earmark-text-fill me-2"></i>Requisitos</a></li>
+                            </ul>
+                        </li>
+                       
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" class="container my-5">
+        <h1 class="text-center mb-4">Bienvenidos a Futdown Nicaragua</h1>
+        <p class="lead text-center">Promoviendo el desarrollo integral de personas con Síndrome de Down a través del deporte, fomentando habilidades físicas, emocionales y sociales en un entorno inclusivo, seguro y lleno de alegría.<br> <br> En FutDown, creemos en el poder del deporte como herramienta de transformación, construyendo autoestima, autonomía y vínculos afectivos que potencian el crecimiento personal de cada participante.</p>
+    </main>
+
+    <!-- Carrusel Dinámico -->
+    <section class="dynamic-carousel">
+        <div class="container">
+            <div class="swiper myDynamicSwiper">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide">
+                        <img src="C:\xampp\htdocs\pagina web\ejemplo\imagenes\daa51db0-5b89-480e-88b9-66d144d55d7f.jpg" alt="Deportes">
+                        <div class="slide-content">
+                            <h3 class="neon-text">DEPORTE INCLUSIVO</h3>
+                            <p>Programas diseñados para el desarrollo físico y social</p>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide">
+                        <img src="C:\xampp\htdocs\pagina web\ejemplo\imagenes\476009857_611030345007962_867949337309606612_n.jpg" alt="Educación">
+                        <div class="slide-content">
+                            <h3 class="neon-text">Futbol competitivo</h3>
+                            <p>Metodologías adaptadas para el aprendizaje efectivo</p>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="swiper-slide">
+                        <img src="C:\xampp\htdocs\pagina web\ejemplo\imagenes\WhatsApp Image 2025-03-25 at 11.57.53.jpeg" alt="Comunidad">
+                        <div class="slide-content">
+                            <h3 class="neon-text">COMUNIDAD ACTIVA</h3>
+                            <p>Un espacio para crecer, compartir y superarse</p>
+                        </div>
+                    </div>
+                    <!-- Slide 4 -->
+                    <div class="swiper-slide">
+                        <img src="C:\xampp\htdocs\pagina web\ejemplo\imagenes\WhatsApp Image 2025-03-25 at 11.56.56.jpeg" alt="Éxito">
+                        <div class="slide-content">
+                            <h3 class="neon-text">HISTORIAS DE ÉXITO</h3>
+                            <p>Testimonios de superación y logros alcanzados</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Controles -->
+                <div class="swiper-button-next"><i class="fas fa-chevron-right"></i></div>
+                <div class="swiper-button-prev"><i class="fas fa-chevron-left"></i></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Inicialización del carrusel dinámico -->
+    <script>
+        const dynamicSwiper = new Swiper(".myDynamicSwiper", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                pauseOnMouseEnter: true,
+            },
+            coverflowEffect: {
+                rotate: 10,
+                stretch: 0,
+                depth: 200,
+                modifier: 1,
+                slideShadows: true,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+<!-- Modal de Bienvenida -->
+<div id="welcomeModal" class="modal">
+    <div class="modal-content">
+      <h2>¡Bienvenido/a a FutDown Nicaragua! 🎉</h2>
+      <p>Gracias por visitarnos. Juntos construyendo inclusión.</p>
+      <button id="closeModal">Cerrar</button>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script>
+  // Mostrar modal al cargar la página
+  document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('welcomeModal');
+    modal.style.display = 'flex';
+    
+    // Lanzar confeti (se repite cada 500ms por 5 segundos)
+    const confettiInterval = setInterval(() => {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }, 500);
+
+    setTimeout(() => {
+      clearInterval(confettiInterval);
+    }, 5000);
+
+    // Cerrar modal
+    document.getElementById('closeModal').addEventListener('click', function() {
+      modal.style.display = 'none';
+      clearInterval(confettiInterval);
+    });
+  });
+</script>
+
+<section class="text-white text-center py-5" style="background-color: #1c73bf;">
+    <div class="container">
+        <section id="Colaboradores"></section>
+        <h1 class="mb-4">Noticias</h1>
+        <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+            <!-- Profesor 1 -->
+            <div class="col">
+                <div class="card h-100 shadow-lg hover-effect" style="width: 18rem; border-radius: 15px; overflow: hidden;">
+                    <img src="C:\xampp\htdocs\pagina web\ejemplo\imagenes\469590549_570351792409151_2639627211846322281_n.jpg" 
+                         class="card-img-top" 
+                         alt="Noticia 1"
+                         style="height: 250px; object-fit: cover;">
+                    <div class="card-body bg-white text-dark">
+                        <h5 class="card-title fw-bold">Noticia 1</h5>
+                        <p class="card-text">Breve descripción de la noticia</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-0">
+                        <a href="#" class="btn btn-primary">ver mas </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profesor 2 -->
+            <div class="col">
+                <div class="card h-100 shadow-lg hover-effect" style="width: 18rem; border-radius: 15px; overflow: hidden;">
+                    <img src="ruta/a/imagen2.jpg" 
+                         class="card-img-top" 
+                         alt="Noticia 2"
+                         style="height: 250px; object-fit: cover;">
+                    <div class="card-body bg-white text-dark">
+                        <h5 class="card-title fw-bold">Noticia 2</h5>
+                        <p class="card-text">Breve descripción de la noticia</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-0">
+                        <a href="#" class="btn btn-primary">ver mas </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profesor 3 -->
+            <div class="col">
+                <div class="card h-100 shadow-lg hover-effect" style="width: 18rem; border-radius: 15px; overflow: hidden;">
+                    <img src="ruta/a/imagen3.jpg" 
+                         class="card-img-top" 
+                         alt="Noticia 3"
+                         style="height: 250px; object-fit: cover;">
+                    <div class="card-body bg-white text-dark">
+                        <h5 class="card-title fw-bold">Noticia 3</h5>
+                        <p class="card-text">Breve descripción de la noticia</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-0">
+                        <a href="#" class="btn btn-primary">ver mas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</section>
+</body>
+</html>
